@@ -1,0 +1,71 @@
+[
+  {
+    "bookingNumber": "1234567",
+    "check_in_date" : "2014-07-07",
+    "check_out_date" : "2014-07-09",
+    "num_of_guest": 2,
+    "num_of_rooms": 2,
+    "reservation_total_price": 234.23,
+    "reservation_currency": "USD",
+    "reservation_tax": 34.23,
+    "payment_method": "credit_card",
+    "payment_details": {
+      "credit_card_num": "1234567890123456",
+      "credit_card_type": "visa",
+      "expiry_date": "12/2020",
+      "sec_code": "123"
+    },
+    "hotel_details":{
+      "hotel_name": "Waters Edge Villas",
+      "hotel_address": "I235B Ponga P.O, Kerala India 688306",
+      "hotel_phone": "+91 98988 02212"
+    },
+    "room_details": {
+      "room_id": "r123",
+      "room_name": "lake view deluxe",
+      "room_dec": "Deluxe room facing the Lake",
+      "notes": "this room can support max 3 adults or 2 adults and 2 kids"
+    },
+    "primary_guest_details": {
+      "full_name": "manoj panicker",
+      "country": "USA",
+      "phone": "+1 1234563423",
+      "email": "joe@techprotech.com",
+      "language": "english",
+      "address": "123 memory lane, utopia, PA 22332"
+    }
+
+  },
+  {
+    "booking_number": "5345345",
+    "check_in_date" : "2016-07-07",
+    "check_out_date" : "2016-07-09",
+    "num_of_guest": 2,
+    "num_of_rooms": 2,
+    "reservation_total_price": 3453.23,
+    "reservation_currency": "USD",
+    "reservation_tax": 34.23,
+    "payment_method": "credit_card",
+    "payment_details": {
+      "credit_card_num": "1234567890123456",
+      "credit_card_type": "visa",
+      "expiry_date": "12/2020",
+      "sec_code": "123"
+    },
+    "room_details": {
+      "room_id": "r123",
+      "room_name": "lake view deluxe",
+      "room_dec": "Deluxe room facing the Lake",
+      "notes": "this room can support max 3 adults or 2 adults and 2 kids"
+    },
+    "primary_guest_details": {
+      "full_name": "manoj panicker",
+      "country": "USA",
+      "phone": "+1 1234563423",
+      "email": "joe@techprotech.com",
+      "language": "english",
+      "address": "123 memory lane, utopia, PA 22332"
+    }
+
+  }
+]
