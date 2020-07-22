@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by manoj on 1/12/2020.
@@ -29,10 +30,10 @@ public class ReservationDynamoService {
         return r;
     }
 
-   /* public Reservation getReservationByEmail(String email) {
-        Reservation r = dynamoDBUtil.getReservationByEmail(email);
-        return r;
-    }*/
+    public List<Reservation> getReservationByEmail(String email) {
+        List<Reservation> reservations = dynamoDBUtil.getReservationByEmail(email);
+        return reservations;
+    }
 
    public Reservation updateReservation(Reservation updatedReservation, String bookingNumber) {
        Reservation currentReservation = dynamoDBUtil.getReservation(bookingNumber);

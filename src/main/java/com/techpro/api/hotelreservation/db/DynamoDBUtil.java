@@ -7,10 +7,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.QueryRequest;
-import com.amazonaws.services.dynamodbv2.model.QueryResult;
+import com.amazonaws.services.dynamodbv2.model.*;
 import com.techpro.api.hotelreservation.domain.Reservation;
 import org.codehaus.jackson.map.util.ISO8601Utils;
 import org.slf4j.Logger;
@@ -39,25 +38,20 @@ public class DynamoDBUtil {
 
     }
 
-    /*public Reservation getReservationByEmail(String email) {
-        QueryRequest dynamoQueryRequest = new QueryRequest();
+    public List<Reservation> getReservationByEmail(String email) {
+        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":val1", new AttributeValue().withS(email));
 
-        Map<String,String> expressionAttributesNames = new HashMap<>();
-        Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("guestDetails.email = :val1").withExpressionAttributeValues(eav);
 
-        expressionAttributesNames.put("#email", "email");
+        List<Reservation> scanResult = dynamoDBMapper.scan(Reservation.class, scanExpression);
 
-        expressionAttributeValues.put(":emailValue",new AttributeValue().withS(email));
-
-        dynamoQueryRequest
-                .withTableName("reservation_db")
-                .withIndexName(passIndexName)
-                .withKeyConditionExpression("#email = :emailValue")
-                .withExpressionAttributeNames(expressionAttributesNames)
-                .withExpressionAttributeValues(expressionAttributeValues)
-                .withConsistentRead(false);
-
-    }*/
+        /*for (Reservation book : scanResult) {
+            System.out.println(book);
+        }*/
+        return scanResult;
+    }
 
     public Reservation getReservation(String bookingNumber) {
         return dynamoDBMapper.load(Reservation.class, bookingNumber);
