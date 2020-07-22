@@ -2,6 +2,7 @@ package com.techpro.api.hotelreservation.controller;
 
 //import com.mongodb.util.JSON;
 import com.techpro.api.hotelreservation.domain.Reservation;
+import com.techpro.api.hotelreservation.exception.ReservationException;
 import com.techpro.api.hotelreservation.service.ReservationDynamoService;
 import com.techpro.api.hotelreservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,15 @@ public class ReservationController {
     }
 
     @PutMapping("/reservation/{bookingNumber}")
-    public void updateReservation(@PathVariable final String bookingNumber, @RequestBody Reservation newReservation){
-        reservationService.updateReservation(newReservation,bookingNumber);
+    public ResponseEntity<?> updateReservation(@PathVariable final String bookingNumber, @RequestBody Reservation newReservation){
+        Reservation r = null;
+        try {
+            r = reservationService.updateReservation(newReservation, bookingNumber);
+
+        } catch (ReservationException re) {
+            return ResponseEntity.badRequest().body(re);
+        }
+        return ResponseEntity.ok().body(r);
     }
 
     @DeleteMapping("/reservation/{bookingNumber}")

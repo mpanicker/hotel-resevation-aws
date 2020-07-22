@@ -2,9 +2,11 @@ package com.techpro.api.hotelreservation.service;
 
 import com.techpro.api.hotelreservation.db.DynamoDBUtil;
 import com.techpro.api.hotelreservation.domain.Reservation;
+import com.techpro.api.hotelreservation.exception.ReservationException;
 import com.techpro.api.hotelreservation.util.RandomString;
 import org.codehaus.jackson.map.util.ISO8601Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -35,8 +37,12 @@ public class ReservationDynamoService {
         return reservations;
     }
 
-   public Reservation updateReservation(Reservation updatedReservation, String bookingNumber) {
+   public Reservation updateReservation(Reservation updatedReservation, String bookingNumber) throws ReservationException{
        Reservation currentReservation = dynamoDBUtil.getReservation(bookingNumber);
+
+       if(currentReservation == null) {
+           throw new ReservationException("reservation does not exist",4001, HttpStatus.NOT_FOUND);
+       }
 
        updatedReservation.setBookingNumber(currentReservation.getBookingNumber());
        Reservation modifiedReservation = dynamoDBUtil.saveReservation(updatedReservation);
