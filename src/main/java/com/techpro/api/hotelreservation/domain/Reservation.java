@@ -23,11 +23,22 @@ public class Reservation {
 
     //Start of JSON format
     public String check_in_date;
+
     public String check_out_date;
     public Integer num_of_guest;
     public Integer num_of_rooms;
     //public String email;
     public String dateCreated;
+
+    public Double reservation_total_price;
+
+    public Double reservation_tax;
+
+    public String reservation_currency;
+
+    public String payment_method;
+
+
 
     public HotelDetails hotelDetails;
 
@@ -130,4 +141,63 @@ public class Reservation {
         this.guestDetails = guestDetails;
     }
 
+    public PaymentDetails getPaymentDetails() {
+        return paymentDetails;
+    }
+
+    public void setPaymentDetails(PaymentDetails paymentDetails) {
+        this.paymentDetails = paymentDetails;
+    }
+
+    public HotelDetails getHotelDetails() {
+        return hotelDetails;
+    }
+
+    public void setHotelDetails(HotelDetails hotelDetails) {
+        this.hotelDetails = hotelDetails;
+    }
+
+    public RoomDetails getRoomDetails() {
+        return roomDetails;
+    }
+
+    public void setRoomDetails(RoomDetails roomDetails) {
+        this.roomDetails = roomDetails;
+    }
+
+    @DynamoDBAttribute(attributeName = "reservation_total_price")
+    public Double getReservation_total_price() {
+        return reservation_total_price;
+    }
+
+    public void setReservation_total_price(Double reservation_total_price) {
+        this.reservation_total_price = reservation_total_price;
+    }
+
+    @DynamoDBAttribute(attributeName = "reservation_tax")
+    public Double getReservation_tax() {
+        return reservation_tax;
+    }
+
+    public void setReservation_tax(Double reservation_tax) {
+        this.reservation_tax = reservation_tax;
+    }
+
+    @DynamoDBAttribute(attributeName = "reservation_currency")
+    public String getReservation_currency() {
+        return reservation_currency;
+    }
+
+    public void setReservation_currency(String reservation_currency) {
+        this.reservation_currency = reservation_currency;
+    }
+
+    @DynamoDBAttribute(attributeName = "payment_method")
+    public String getPayment_method() {
+        return payment_method;
+    }
+
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
+    }
 }

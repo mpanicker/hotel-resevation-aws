@@ -42,14 +42,14 @@ public class ReservationController {
         return r;
     }
 
-    /*@PutMapping("/reservation/{bookingNumber}")
+    @PutMapping("/reservation/{bookingNumber}")
     public void updateReservation(@PathVariable final String bookingNumber, @RequestBody Reservation newReservation){
-        reservationService.updateReservation(bookingNumber, newReservation);
+        reservationService.updateReservation(newReservation,bookingNumber);
     }
 
     @DeleteMapping("/reservation/{bookingNumber}")
     public void deleteReservation(@PathVariable final String bookingNumber) {
         reservationService.deleteReservation(bookingNumber);
-    }*/
+    }
 
 }

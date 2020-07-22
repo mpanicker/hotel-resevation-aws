@@ -1,8 +1,11 @@
 package com.techpro.api.hotelreservation.domain;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
+
 /**
  * Created by manoj on 1/12/2020.
  */
+@DynamoDBDocument
 public class HotelDetails {
 
     private String hotel_name;

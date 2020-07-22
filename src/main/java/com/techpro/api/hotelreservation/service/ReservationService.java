@@ -49,6 +49,7 @@ public class ReservationService {
         if (newReservation.getNum_of_rooms() != null){
             r.setNum_of_rooms(newReservation.getNum_of_rooms());
         }
+/*
         if (newReservation.getReservation_total_price() != null){
             r.setReservation_total_price(newReservation.getReservation_total_price());
         }
@@ -61,6 +62,7 @@ public class ReservationService {
         if (newReservation.getPayment_method() != null){
             r.setPayment_method(newReservation.getPayment_method());
         }
+*/
 
         /*if (newReservation.getHotel_details() != null){
             for(Map.Entry<String, String> entry : newReservation.getHotel_details().entrySet()) {

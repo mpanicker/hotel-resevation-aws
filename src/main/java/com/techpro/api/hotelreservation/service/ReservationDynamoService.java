@@ -25,7 +25,7 @@ public class ReservationDynamoService {
         String isoDateStr = ISO8601Utils.format(currentDate);
         newReservation.setDateCreated(isoDateStr);
 
-        Reservation r = dynamoDBUtil.saveReservation(newReservation,"us-east-1");
+        Reservation r = dynamoDBUtil.saveReservation(newReservation);
         return r;
     }
 
@@ -34,8 +34,24 @@ public class ReservationDynamoService {
         return r;
     }*/
 
+   public Reservation updateReservation(Reservation updatedReservation, String bookingNumber) {
+       Reservation currentReservation = dynamoDBUtil.getReservation(bookingNumber);
+
+       updatedReservation.setBookingNumber(currentReservation.getBookingNumber());
+       Reservation modifiedReservation = dynamoDBUtil.saveReservation(updatedReservation);
+
+       return modifiedReservation;
+   }
+
     public Reservation getReservation(String bookingNumber) {
         Reservation r = dynamoDBUtil.getReservation(bookingNumber);
         return r;
+    }
+
+    public void deleteReservation(String bookingNumber) {
+        Reservation currentReservation = dynamoDBUtil.getReservation(bookingNumber);
+
+        dynamoDBUtil.deleteReservation(currentReservation);
+
     }
 }

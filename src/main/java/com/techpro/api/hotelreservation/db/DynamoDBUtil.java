@@ -33,13 +33,7 @@ public class DynamoDBUtil {
     @Autowired
     AmazonDynamoDB amazonDynamoDBClient;
 
-    public Reservation saveReservation(Reservation reservation, String region) {
-
-        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
-                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
-                .build();
-
-
+    public Reservation saveReservation(Reservation reservation) {
         dynamoDBMapper.save(reservation);
         return dynamoDBMapper.load(reservation);
 
@@ -68,4 +62,9 @@ public class DynamoDBUtil {
     public Reservation getReservation(String bookingNumber) {
         return dynamoDBMapper.load(Reservation.class, bookingNumber);
     }
+
+    public void deleteReservation(Reservation reservation) {
+        dynamoDBMapper.delete(reservation);
+    }
+
 }
