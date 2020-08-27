@@ -61,4 +61,15 @@ public class DynamoDBUtil {
         dynamoDBMapper.delete(reservation);
     }
 
+    public List<Reservation> getReservations() {
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+
+        List<Reservation> scanResult = dynamoDBMapper.scan(Reservation.class, scanExpression);
+
+        /*for (Reservation book : scanResult) {
+            System.out.println(book);
+        }*/
+        return scanResult;
+    }
+
 }

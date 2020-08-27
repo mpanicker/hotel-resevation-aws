@@ -50,7 +50,7 @@ public class ReservationController {
             r = reservationService.updateReservation(newReservation, bookingNumber);
 
         } catch (ReservationException re) {
-            return ResponseEntity.badRequest().body(re);
+            return ResponseEntity.badRequest().body("reservation does not exist");
         }
         return ResponseEntity.ok().body(r);
     }
@@ -58,6 +58,12 @@ public class ReservationController {
     @DeleteMapping("/reservation/{bookingNumber}")
     public void deleteReservation(@PathVariable final String bookingNumber) {
         reservationService.deleteReservation(bookingNumber);
+    }
+
+    @GetMapping("/reservations")
+    public List<?> getReservations(){
+        List<Reservation> reservationList = reservationService.getReservations();
+        return reservationList;
     }
 
 }

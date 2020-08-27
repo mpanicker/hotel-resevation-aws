@@ -15,10 +15,6 @@ import java.util.Map;
 @DynamoDBTable(tableName = "reservation_db")
 public class Reservation {
 
-    @JsonIgnore
-    //@Id
-    //public String id;
-
     public String bookingNumber;
 
     //Start of JSON format

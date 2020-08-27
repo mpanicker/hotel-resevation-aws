@@ -7,7 +7,7 @@
 
 
 ### TO ADD OAuth2 security to any Spring REST API
-1. git clone the project at  https://github.com/Baeldung/spring-security-oauth
+1. git clone the project at  https://github.com/mpanicker/hotel-reservation-oauth
 2. run oauth-authorization-server - the Authorization Server (port = 8081)
 3. to get a auth token
 POST http://localhost:8081/spring-security-oauth-server/oauth/token?username=john&password=123&grant_type=password&client_id=reservation-api-read-client
@@ -73,4 +73,16 @@ or by editing .aws/credentials file directly
 4. 
 
 
+# java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
+IntelliJ java version issue
+select the project and File menu --> Project Structure
+and ensure JDK 8
 
+#to deploy as a lambda
+1. sam local start-api --template sam.yaml
+#####1.a Pom.xml must only have maven-shade-plugin otherwise we will get ClassNotFound exception for StreamLambdaHandler
+To deploy to AWS using CF
+1. aws cloudformation package --template-file sam.yaml --output-template-file output-sam.yaml --s3-bucket reservation-api-lambda
+2. aws cloudformation deploy --template-file output-sam.yaml --stack-name ReservationApi --capabilities CAPABILITY_IAM
+3. The Lambda and API gateway will take time to respond. First few times I got
+timeout error, then "API status DOWN" and then eventually it worked

@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Reservation API
+Resources:
+  ReservationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.techpro.api.hotelreservation.lambda.StreamLambdaHandler::handleRequest
+      Runtime: java8
+      CodeUri: s3://reservation-api-lambda/9ef4c93ee08778cea660214046fd59db
+      MemorySize: 512
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 30
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+
+Outputs:
+  SpringBootSampleApi:
+    Description: URL for application
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping
+    Export:
+      Name: ReservationApi

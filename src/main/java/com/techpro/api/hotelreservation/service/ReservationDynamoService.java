@@ -61,4 +61,9 @@ public class ReservationDynamoService {
         dynamoDBUtil.deleteReservation(currentReservation);
 
     }
+
+    public List<Reservation> getReservations() {
+        List<Reservation> reservations = dynamoDBUtil.getReservations();
+        return reservations;
+    }
 }
