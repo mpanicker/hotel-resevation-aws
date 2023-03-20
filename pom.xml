@@ -110,6 +110,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- JAXB API -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- JAXB RI -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -130,8 +144,8 @@
 					</profiles>
 				</configuration>
 			</plugin>
-
-			<plugin>
+-->
+			<!--<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.9</version>
@@ -139,6 +153,20 @@
 					<repository>${project.artifactId}</repository>
 				</configuration>
 			</plugin>-->
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.38.1</version>
+				<executions>
+					<execution>
+						<id>build</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- end::plugin[] -->
 
 			<!-- tag::unpack[] -->
@@ -178,6 +206,26 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							<transformers>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<resource>META-INF/spring.handlers</resource>
+							</transformer>
+							<transformer
+									implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
+								<resource>META-INF/spring.factories</resource>
+							</transformer>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<resource>META-INF/spring.schemas</resource>
+							</transformer>
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>com.techpro.api.hotelreservation.HotelReservationApplication</mainClass>
+							</transformer>
+							</transformers>
 							<artifactSet>
 								<excludes>
 									<exclude>org.apache.tomcat.embed:*</exclude>

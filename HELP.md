@@ -42,8 +42,10 @@ WebSecurityConfig.java
 
 # To build and run using Docker
 1. ./mvnw install dockerfile:build
+2. ./mvnw install docker:build(Apple M1 chip. see common errors below)
+3. ./mvnw install docker:build -DskipTests
 
-2. docker run -p 8080:8080 -t hotel-reservation:latest
+4. docker run -p 8080:8080 -t api/hotel-reservation:latest
 
 # to deploy to AWS ECS
 1. create a personal cli profile either by using aws configure set region us-west-2 --profile personal
@@ -86,3 +88,43 @@ To deploy to AWS using CF
 2. aws cloudformation deploy --template-file output-sam.yaml --stack-name ReservationApi --capabilities CAPABILITY_IAM
 3. The Lambda and API gateway will take time to respond. First few times I got
 timeout error, then "API status DOWN" and then eventually it worked
+
+# common errors
+1.
+Not able to execute a .sh file: /bin/bash^M: bad interpreter when running ./mvnw 
+due to windows new line character. Run the below in macos
+sed -i -e 's/\r$//' mvnw ./mvnw install dockerfile:build
+
+2.
+for Mac M1 chip
+replace
+<groupId>com.spotify</groupId>
+<artifactId>dockerfile-maven-plugin</artifactId>
+
+with
+<groupId>io.fabric8</groupId>
+<artifactId>docker-maven-plugin</artifactId>
+
+3.
+Caused by: javax.xml.bind.JAXBException: Implementation of JAXB-API has not been found on module path or classpath
+add
+<!-- JAXB API -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- JAXB RI -->
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.3.4</version>
+		</dependency>
+
+4.
+no main manifest attribute, in /app.jar
+shade plugin with transformers and mainclass
+
+5
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.context.ApplicationContextException: Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.

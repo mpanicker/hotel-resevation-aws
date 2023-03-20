@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SpringBootApplication
-public class HotelReservationApplication extends SpringBootServletInitializer {
+public class HotelReservationApplication {
 
 	// silence console logging
 	@Value("${logging.level.root:OFF}")
